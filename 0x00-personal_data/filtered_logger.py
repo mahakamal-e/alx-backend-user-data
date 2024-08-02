@@ -103,3 +103,7 @@ class RedactingFormatter(logging.Formatter):
         msg = filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
         record.msg = msg
         return super().format(record)
+
+
+if __name__ == '__main__':
+    main()
