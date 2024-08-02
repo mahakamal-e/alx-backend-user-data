@@ -23,15 +23,15 @@ def get_logger() -> logging.Logger:
     logger_obj = logging.getLogger("user_data")
     logger_obj.setLevel(logging.INFO)
     logger_obj.propagate = False
-    
+
     handler = logging.StreamHandler()
     handler.setLevel(logging.INFO)
-    
+
     formatter = RedactingFormatter(fields=PII_FIELDS)
     handler.setFormatter(formatter)
-    
+
     logger_obj.addHandler(handler)
-    
+
     return logger_obj
 
 
