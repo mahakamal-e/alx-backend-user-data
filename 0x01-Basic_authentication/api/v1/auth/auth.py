@@ -27,7 +27,7 @@ class Auth:
         """returns None - request"""
         if request is None:
             return None
-        header = request.header.get('Authorization')
+        header = request.headers.get('Authorization')
         if not header:
             return None
         return header
