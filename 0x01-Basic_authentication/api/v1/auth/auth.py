@@ -25,9 +25,9 @@ class Auth:
             if path.startswith(excluded_prefix):
                 return False
             else:
-                if path == excluded_path or 
-                           path.startswith(excluded_path + '/'):
-                    return False
+                if (path == excluded_path or 
+                    path.startswith(excluded_path + '/')):
+                return False
         return True
 
     def authorization_header(self, request=None) -> str:
