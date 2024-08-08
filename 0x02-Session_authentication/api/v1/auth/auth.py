@@ -5,7 +5,7 @@ in a Flask application.
 """
 from typing import List, TypeVar
 from flask import request
-
+import os
 
 class Auth:
     """Implement class Auth """
