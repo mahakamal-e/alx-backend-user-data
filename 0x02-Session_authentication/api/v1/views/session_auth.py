@@ -6,7 +6,7 @@ from api.v1.views import app_views
 import os
 
 
-@app_views.route('/auth_session/login/', methods=['POST'])
+@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login() -> str:
     """Handle login for session authentication"""
     email = request.form.get('email')
@@ -17,10 +17,11 @@ def login() -> str:
     if not password:
         return jsonify({"error": "password missing"}), 400
 
-    user = User.search(email)
-    if user is None:
+    users = User.search({'email': email})
+    if users is None:
         return jsonify({"error": "no user found for this email"}), 404
     
+    user = users[0]
     is_valid_pwd = user.is_valid_password(password)
     if not is_valid_pwd:
         return jsonify({"error": "wrong password"}), 401
