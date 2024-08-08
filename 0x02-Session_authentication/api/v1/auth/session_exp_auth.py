@@ -1,29 +1,30 @@
 #!/usr/bin/env python3
-""" SessionExpAuth Module """
-from datetime import datetime, timedelta
+"""Defines session_exp_auth module"""
+
 from .session_auth import SessionAuth
+from datetime import datetime, timedelta
 import os
 
 
 class SessionExpAuth(SessionAuth):
+    """Implement SessionExpAuth class"""
     def __init__(self) -> None:
-        """Initialize SessionExpAuth with session duration."""
         super().__init__()
-        self.session_duration = 0
-        try:
-            self.session_duration = int(os.getenv('SESSION_DURATION', '0'))
-        except ValueError:
-            self.session_duration = 0
+        self.session_duration = int(os.environ.get('SESSION_DURATION', 0))
 
     def create_session(self, user_id=None):
-        """Create a session with expiration."""
+        """Creates a session"""
         session_id = super().create_session(user_id)
         if not session_id:
             return None
-        self.user_id_by_session_id[session_id] = {
+
+        session_dict = {
             'user_id': user_id,
             'created_at': datetime.now()
         }
+
+        self.user_id_by_session_id[session_id] = session_dict
+
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
