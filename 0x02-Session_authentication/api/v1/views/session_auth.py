@@ -33,8 +33,7 @@ def login() -> str:
     return response
 
 
-@app_views.route('/auth_session/logout',
-                 methods=['DELETE'],
+@app_views.route('/auth_session/logout',methods=['DELETE'],
                  strict_slashes=False)
 def logout():
     """Logout route"""
