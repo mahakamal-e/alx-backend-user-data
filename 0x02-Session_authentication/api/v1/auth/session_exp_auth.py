@@ -6,7 +6,7 @@ import os
 
 
 class SessionExpAuth(SessionAuth):
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize SessionExpAuth with session duration."""
         super().__init__()
         self.session_duration = 0
