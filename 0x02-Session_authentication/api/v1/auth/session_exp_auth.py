@@ -2,6 +2,7 @@
 """ SessionExpAuth Module """
 from datetime import datetime, timedelta
 from .session_auth import SessionAuth
+import os
 
 
 class SessionExpAuth(SessionAuth):
