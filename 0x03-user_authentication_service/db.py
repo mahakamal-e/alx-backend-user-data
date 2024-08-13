@@ -37,22 +37,3 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
-
-    def find_user_by(self, **kwargs) -> User:
-        """find user based on input argument"""
-        user = self._session.query(User).filter_by(**kwargs).first()
-        if not user:
-            raise NoResultFound
-        return user
-
-    def update_user(self, user_id: int, **kwargs) -> None:
-        """ update user based on input arguments"""
-        user = self.find_user_by(id=user_id)
-        if not user:
-            return None
-        for key, value in kwargs.items():
-            if hasattr(user, key):
-                setattr(user, key, value)
-            else:
-                raise ValueError
-        self._session.commit()
