@@ -32,7 +32,8 @@ class Auth:
                 return True
         except NoResultFound:
             return False
-    
+        return False
+
 
 def _hash_password(password: str) -> bytes:
     """ Returned hashed pawssword"""
