@@ -44,7 +44,6 @@ class Auth:
             return session_id
         except NoResultFound:
             return None
-        
 
 
 def _hash_password(password: str) -> bytes:
