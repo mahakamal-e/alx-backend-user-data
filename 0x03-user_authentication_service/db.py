@@ -17,7 +17,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -37,3 +37,27 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """Find user based on the input arguments"""
+        user = self._session.query(User).filter_by(**kwargs).first()
+
+        if not user:
+            raise NoResultFound
+
+        return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update user based on input arguments"""
+        user = self.find_user_by(id=user_id)
+
+        if not user:
+            return None
+
+        for key, value in kwargs.items():
+            if hasattr(user, key):
+                setattr(user, key, value)
+            else:
+                raise ValueError
+
+        self._session.commit()
