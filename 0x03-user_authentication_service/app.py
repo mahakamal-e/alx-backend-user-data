@@ -31,7 +31,7 @@ def login():
     email = request.form.get('email')
     password = request.form.get('password')
     check_valid = AUTH.valid_login(email, password)
-    
+
     if check_valid:
         session_id = AUTH.create_session(email)
         response = jsonify({"email": email, "message": "logged in"})
