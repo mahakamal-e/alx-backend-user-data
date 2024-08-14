@@ -57,6 +57,7 @@ def logout():
 
     abort(403)
 
+
 @app.route('/profile', methods=['GET'], strict_slashes=False)
 def profile():
     """profile end-point"""
