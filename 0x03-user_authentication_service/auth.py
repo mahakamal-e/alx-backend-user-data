@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-""" Authentication Module """
-import bcrypt
+"""Auth module"""
+
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
+import bcrypt
 import uuid
 
 
@@ -15,7 +16,7 @@ class Auth:
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
-        """Saved the user to the database after hashing password."""
+        """Implement sign up"""
         try:
             user = self._db.find_user_by(email=email)
             raise ValueError(f"User {email} already exists")
@@ -23,10 +24,11 @@ class Auth:
             hashed_password = _hash_password(password)
             user = self._db.add_user(email=email,
                                      hashed_password=hashed_password)
+
             return user
 
-    def valid_login(self, email, password) -> bool:
-        """returns true if password match with email"""
+    def valid_login(self, email: str, password: str) -> bool:
+        """Validate login"""
         try:
             user = self._db.find_user_by(email=email)
             is_valid_password = bcrypt.checkpw(password.encode('utf-8'),
