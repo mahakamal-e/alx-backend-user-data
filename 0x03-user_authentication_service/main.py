@@ -31,8 +31,8 @@ def log_in_wrong_password(email: str, password: str) -> None:
 def log_in(email: str, password: str) -> str:
     """Log in with correct password and return the session ID"""
     response = requests.post(f"{BASE_URL}/sessions",
-                            data={"email": email,
-                                  "password": password})
+                             data={"email": email,
+                                   "password": password})
     assert response.status_code == 200
     assert "session_id" in response.cookies
     return response.cookies["session_id"]
@@ -57,7 +57,7 @@ def log_out(session_id: str) -> None:
     response = requests.delete(f"{BASE_URL}/sessions",
                                cookies={"session_id": session_id})
     assert response.status_code == 302  # Check for redirection
-    assert response.headers["Location"] == "/"  # Check redirection to the home page
+    assert response.headers["Location"] == "/"
 
 
 def reset_password_token(email: str) -> str:
