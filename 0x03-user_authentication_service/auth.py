@@ -64,6 +64,16 @@ class Auth:
         except ValueError:
             return None
 
+    def get_reset_password_token(self, email: str) -> str:
+        """Find the user corresponding to the email"""
+        try:
+            user = self._db.find_user_by(email=email)
+            token_uuid = _generate_uuid()
+            self.update_user(user.id, rest_token=token_uuid)
+            return token_uuid
+        except NoResultFound:
+            raise ValueError
+
 
 def _hash_password(password: str) -> bytes:
     """ Returned hashed pawssword"""
