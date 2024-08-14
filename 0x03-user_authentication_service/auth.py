@@ -26,7 +26,7 @@ class Auth:
             return user
 
     def valid_login(self, email, password) -> bool:
-        """returrs true if password match with email"""
+        """returns true if password match with email"""
         try:
             user = self._db.find_user_by(email=email)
             is_valid_password = bcrypt.checkpw(password.encode('utf-8'),
