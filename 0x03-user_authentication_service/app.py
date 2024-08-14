@@ -45,18 +45,16 @@ def login():
 def logout():
     """Logout end-point."""
     session_id = request.cookies.get('session_id')
-    
+
     if not session_id:
         abort(403)
-    
+
     user = AUTH.get_user_from_session_id(session_id)
-    
+
     if user:
         AUTH.destroy_session(user.id)
-        response = redirect(url_for('home'))
-        response.delete_cookie('session_id')
-        return response
-    
+        return redirect('/')
+
     abort(403)
 
 
