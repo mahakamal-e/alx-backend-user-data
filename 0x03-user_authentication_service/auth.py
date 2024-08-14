@@ -84,7 +84,7 @@ class Auth:
                                  reset_token=None)
         except NoResultFound:
             raise ValueError
-            
+
 
 def _hash_password(password: str) -> bytes:
     """ Returned hashed pawssword"""
