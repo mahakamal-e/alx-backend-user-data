@@ -43,13 +43,21 @@ def login():
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
-    """ logout end-point"""
+    """Logout end-point."""
     session_id = request.cookies.get('session_id')
-    user = AUTH.get_user_from_session(session_id)
-    if not user:
+    
+    if not session_id:
         abort(403)
-    AUTH.destroy_session(user.id)
-    return redirect('/')
+    
+    user = AUTH.get_user_from_session_id(session_id)
+    
+    if user:
+        AUTH.destroy_session(user.id)
+        response = redirect(url_for('home'))
+        response.delete_cookie('session_id')
+        return response
+    
+    abort(403)
 
 
 if __name__ == "__main__":
